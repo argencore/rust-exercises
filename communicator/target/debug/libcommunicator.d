@@ -1,1 +1,1 @@
-/home/jinx/src/rustPrograms/communicator/target/debug/libcommunicator.rlib: /home/jinx/src/rustPrograms/communicator/src/lib.rs
+/home/jinx/src/rustPrograms/communicator/target/debug/libcommunicator.rlib: /home/jinx/src/rustPrograms/communicator/src/client.rs /home/jinx/src/rustPrograms/communicator/src/lib.rs /home/jinx/src/rustPrograms/communicator/src/network/mod.rs /home/jinx/src/rustPrograms/communicator/src/network/server.rs
