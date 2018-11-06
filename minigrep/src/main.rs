@@ -6,8 +6,7 @@ use minigrep::Search;
 
 fn main() {
     //get iterator of command line arguments and then collect into a vector
-    let args: Vec<String> = env::args().collect();
-    let search = Search::new(&args).unwrap_or_else(|err|{
+    let search = Search::new(env::args()).unwrap_or_else(|err|{
         eprintln!("problem parsing arguments:{}", err);
         process::exit(1)
     });

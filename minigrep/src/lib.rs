@@ -28,36 +28,39 @@ pub struct Search{
 
 impl Search{
     //a function to create a config from the arguments list
-    pub fn new(args: &[String]) -> Result<Search, &'static str>{
-        if args.len() < 3 {
-            return Err("not enough arguments");
-        }
+    pub fn new(mut args: std::env::Args) -> Result<Search, &'static str>{
+        //don't need process name
+        args.next();
+
+        let query = match args.next() {
+            Some(args) => args,
+            None => return Err("didn't get a query string"),
+        };
+
+        let file_path = match args.next() {
+            Some(args) => args,
+            None => return Err("no file path specified"),
+        };
+
         let case_sensitive = env::var("CASE_INSENSITIVE").is_err();
-        Ok(Search{query: args[1].clone(),file_path: args[2].clone(), case_sensitive})
+        Ok(Search{query,file_path, case_sensitive})
     }
 }
 
 fn search_case_sensitive<'a>(query: &str, contents: &'a str) -> Vec<&'a str>{
-    let mut results = Vec::new();
+    contents
+        .lines()
+        .filter(|line| line.contains(query))
+        .collect()
 
-    for line in contents.lines(){
-        if line.contains(query){
-            results.push(line);
-        }
-    }
-    results
 }
 
 fn search_case_insensitive<'a>(query: &str, contents: &'a str) -> Vec<&'a str>{
-    let mut results = Vec::new();
-    let query = query.to_lowercase();
+    contents
+        .lines()
+        .filter(|line| line.to_lowercase().contains(&query.to_lowercase()))
+        .collect()
 
-    for line in contents.lines(){
-        if line.to_lowercase().contains(&query){
-            results.push(line);
-        }
-    }
-    results
 }
 
 #[cfg(test)]
