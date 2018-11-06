@@ -3,6 +3,7 @@ use std::ops::Deref;
 fn main() {
     let m = MyBox::new(String::from("world"));
     //super cool thing happens &m automatically becomes &T where T is content of &m
+    //since &T = &String another automatic conversion takes it to &str
     hello(&m);
 }
 
