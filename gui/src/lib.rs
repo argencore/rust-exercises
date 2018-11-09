@@ -1,3 +1,7 @@
+//!This aproach comes at a cost as it causes the runtime to
+//!decide what to do with the components Vec
+
+
 
 //defines the trait and method that must be implemented
 pub trait Draw{
