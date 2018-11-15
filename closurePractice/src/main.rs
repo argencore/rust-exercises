@@ -36,7 +36,6 @@ where T: Fn(u32) -> u32
         }
     }
     fn value(&mut self, arg: u32) -> u32{
-        let mut result: u32;
         if self.value.contains_key(&arg){
            *self.value.get(&arg).unwrap()
         }else{
