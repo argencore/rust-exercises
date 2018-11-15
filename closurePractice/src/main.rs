@@ -19,18 +19,18 @@ description: a struct used to catch the result of a closure that
 can be used in multiple places to reduce the amount of times the
 function needs to be run.
 */
-struct Catcher_U32<T>
+struct CatcherU32<T>
 where T: Fn(u32) -> u32
 {
     calculation: T,
     value: HashMap<u32,u32>
 }
 
-impl<T> Catcher_U32<T>
+impl<T> CatcherU32<T>
 where T: Fn(u32) -> u32
 {
-    fn new(calculation: T) -> Catcher_U32<T>{
-        Catcher_U32{
+    fn new(calculation: T) -> CatcherU32<T>{
+        CatcherU32{
             calculation,
             value: HashMap::new(),
         }
@@ -48,7 +48,7 @@ where T: Fn(u32) -> u32
 }
 
 fn generate_workout(intensity: u32, random_number: u32){
-    let mut expensive_result = Catcher_U32::new(|num|{
+    let mut expensive_result = CatcherU32::new(|num|{
         println!("calculating slowly...");
         thread::sleep(Duration::from_secs(2));
         num
@@ -62,6 +62,15 @@ fn generate_workout(intensity: u32, random_number: u32){
             "Next, do {} situps!",
             expensive_result.value(intensity)
         );
+        println!(
+            "Next, do {} leg lifts!",
+            expensive_result.value(intensity * intensity)
+        );
+        println!(
+            "Next, do {} stretches!",
+            expensive_result.value(intensity)
+        );
+
     } else {
         if random_number == 3 {
             println!("Take a break today! Remember to stay hydrated!");
